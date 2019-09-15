@@ -10,14 +10,12 @@ class Comentarios extends REST_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('comentarios_model');
-        //$this->load->helper('url_helper');
         $this->load->library('session');
+        $this->load->helper('url_helper');
 
-        /*
-        if(!$this->session->has_userdata('user')){
-            redirect(site_url('autentication'));
+        if(!$this->session->has_userdata('usuario')){
+            redirect(site_url('api/autenticacion/error'));
         }
-        */
     }
 
     public function getComentarios_get(){
