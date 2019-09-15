@@ -1,5 +1,5 @@
 <?php
-class News_model extends CI_Model {
+class Wittes_model extends CI_Model {
     public function __construct(){
         $this->load->database();
     }
@@ -14,29 +14,37 @@ class News_model extends CI_Model {
         return $query->row_array();
     }
 
-    public function set_wittes($image_data = NULL){
-        $data = array(
-            'usuario' => $this->input->post('usuario'),
-            'texto' => $this->input->post('texto'),
-            'fecha' => $this->input->post('fecha')
-        );
+    public function set_wittes($witte = NULL){
+        if($witte){
+            $data = array(
+                'usuario' => $witte['usuario'],
+                'texto' => $witte['texto'],
+                'fecha' => $witte['fecha']
+            );
 
-        return $this->db->insert('wittes', $data);
+            return $this->db->insert('wittes', $data);
+        } else {
+            return FALSE;
+        }
     }
 
-    public function update_wittes($id = FALSE, $image_data = NULL){
-        $data = array(
-            'usuario' => $this->input->post('usuario'),
-            'texto' => $this->input->post('texto'),
-            'fecha' => $this->input->post('fecha')
-        );
+    public function update_wittes($witte = FALSE){
+        if($witte){
+            $data = array(
+                'usuario' => $witte['usuario'],
+                'texto' => $witte['texto'],
+                'fecha' => $witte['fecha']
+            );
 
-        $this->db->where('id', $this->input->post('id'));
-        return $this->db->update('wittes', $data);
+            $this->db->where('id', $witte['id']);
+            return $this->db->update('wittes', $data);
+        } else {
+            return FALSE;
+        }
     }
 
     public function delete_wittes($id = FALSE){
-        $query = array('msg' => 'error');
+        $query = FALSE;
         if ($id){
             return $query = $this->db->delete('wittes', array('id' => $id));
         }
