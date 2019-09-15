@@ -1,5 +1,5 @@
 <?php
-class News_model extends CI_Model {
+class Comentarios_model extends CI_Model {
     public function __construct(){
         $this->load->database();
     }
@@ -14,31 +14,39 @@ class News_model extends CI_Model {
         return $query->row_array();
     }
 
-    public function set_comentarios($image_data = NULL){
-        $data = array(
-            'usuario' => $this->input->post('usuario'),
-            'witte' => $this->input->post('witte'),
-            'texto' => $this->input->post('texto'),
-            'fecha' => $this->input->post('fecha')
-        );
+    public function set_comentarios($comentario = FALSE){
+        if($comentario){
+            $data = array(
+                'usuario' => $comentario['usuario'],
+                'witte' => $comentario['witte'],
+                'texto' => $comentario['texto'],
+                'fecha' => $comentario['fecha']
+            );
 
-        return $this->db->insert('comentarios', $data);
+            return $this->db->insert('comentarios', $data);
+        } else {
+            return FALSE;
+        }
     }
 
-    public function update_comentarios($id = FALSE, $image_data = NULL){
-        $data = array(
-            'usuario' => $this->input->post('usuario'),
-            'witte' => $this->input->post('witte'),
-            'texto' => $this->input->post('texto'),
-            'fecha' => $this->input->post('fecha')
-        );
+    public function update_comentarios($comentario = FALSE){
+        if($comentario){
+            $data = array(
+                'usuario' => $comentario['usuario'],
+                'witte' => $comentario['witte'],
+                'texto' => $comentario['texto'],
+                'fecha' => $comentario['fecha']
+            );
 
-        $this->db->where('id', $this->input->post('id'));
-        return $this->db->update('comentarios', $data);
+            $this->db->where('id', $comentario['id']);
+            return $this->db->update('comentarios', $data);
+        } else {
+            return FALSE;
+        }
     }
 
     public function delete_comentarios($id = FALSE){
-        $query = array('msg' => 'error');
+        $query = FALSE;
         if ($id){
             return $query = $this->db->delete('comentarios', array('id' => $id));
         }
