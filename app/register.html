@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro Witt</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/5a6497da12.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section id="register" class="mb-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
+                    <div class="card_register">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h1 class=" h3 mb-3 font-weight-normal ">Registro</h1>
+                                <form action="/examen_desarrollo/server/index.php/api/images/upload" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+                                    <div class="card card-body text-center">
+                                        <img src="../server/uploads/default.png" alt="Imagen de Usuario" class="imagen">
+                                        <br>
+                                        <input type="file" name="imagen" />
+                                    </div>
+                                </form>
+                                <br>
+                                <form action="submit">
+                                    <div class="form-group ">
+                                        <input type="nombre" name="nombre" class="form-control " placeholder="Nombre" required>
+                                    </div>
+                                    <div class="form-group ">
+                                        <input type="correo" name="correo" class="form-control " placeholder="Correo" required minlength="8 ">
+                                    </div>
+                                    <div class="form-group ">
+                                        <input type="contra" name="contra" class="form-control " placeholder="Contraseña" required minlength="5 " maxlength="10 ">
+                                    </div>
+
+                                    <br>
+                                    <button type="submit" class="btn btn-lg boton btn-principal btn-block ">Registrarse</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+/* Paleta de colores*/
+
+
+/*
+primary=#03a9f4;
+p-light=#67daff;
+p-dark=#007ac1;
+text-p=#000000;
+secundary=#546e7a;
+s-light=#819ca9;
+s-dark=#29434e;
+text-s=#ffffff;
+*/
+
+.imagen {
+    width: 95%;
+    height: 95%;
+}
+
+
+/*Botones*/
+
+.boton {
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.btn-principal {
+    background-color: #03a9f4;
+}
+
+.btn-segundo {
+    background-color: #546e7a;
+}
+
+.btn-action {
+    background-color: #67daff;
+}
+
+
+/*Index header*/
+
+.sitio-header {
+    background-color: #03a9f4;
+    color: #000000;
+}
+
+.logo {
+    width: 5%;
+    height: 5%;
+}
+
+.encabezado {
+    display: flex;
+}
+
+.nombre {
+    margin-right: 10px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.usuario {
+    margin-right: 10px;
+    width: 5%;
+    height: 5%;
+}
+
+.icono {
+    color: #ffffff;
+    width: 5%;
+    height: 5%;
+}
+
+
+/*Cuerpo*/
+
+.titulo {
+    margin-top: 100px;
+    color: #007ac1;
+}
+
+.witts {
+    margin-bottom: 50px;
+}
+
+.h-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fecha {
+    color: #819ca9;
+    float: right;
+}
+
+.usuario-card {
+    width: 40px;
+    height: 40px;
+}
+
+.texto {
+    color: #29434e;
+}
+
+.ver-cometarios {
+    color: #ffffff;
+}
