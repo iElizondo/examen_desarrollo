@@ -22,7 +22,7 @@ class Autenticacion extends REST_Controller {
                 $query = $this->db->get('usuarios');
                 if($query->row_array()){
                     $this->session->set_userdata('usuario', $query->row_array());
-                    $response = array('estado' => 'ok', 'msg' => 'Autenticado correctamente,');
+                    $response = array('estado' => 'ok', 'msg' => 'Autenticado correctamente.');
                 } else {
                     $response = array('estado' => 'error', 'msg' => 'Usuario o contraseña incorrecto.');
                 }

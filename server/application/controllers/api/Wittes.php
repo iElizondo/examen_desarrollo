@@ -35,7 +35,24 @@ class Wittes extends REST_Controller {
         else
             $response = array('estado' => 'error', 'msg' => 'No hay registros con ese id.');
             
+        $this->response($response, REST_Controller::HTTP_OK);
+    }
+
+    public function foundWittes_get(){
+        // El cuarto segmento de la URI es el ID
+        $termino = $this->uri->segment(4);
+
+        $termino = str_replace("_", " ", $termino);
         
+        // Se buscan los datos
+        $data = $this->wittes_model->found_wittes($termino);
+
+        // Se formatea la respuesta
+        if($data) {
+            $response = array('estado' => 'ok', 'msg' => $data);
+        } else {
+            $response = array('estado' => 'ok', 'msg' => array());
+        }
         $this->response($response, REST_Controller::HTTP_OK);
     }
 

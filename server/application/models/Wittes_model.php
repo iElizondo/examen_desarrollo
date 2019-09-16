@@ -14,6 +14,16 @@ class Wittes_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function found_wittes($termino = FALSE){
+        if ($termino === FALSE){
+            return FALSE;
+        } else {
+            $this->db->like('texto', $termino);
+            $query = $this->db->get('wittes');
+            return $query->row_array();
+        }
+    }
+
     public function set_wittes($witte = NULL){
         if($witte){
             $data = array(
