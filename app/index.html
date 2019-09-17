@@ -41,7 +41,10 @@
                         </div>
                     </div>
                     <main class="witts">
-                        <div class="card p-2" v-for="witte in wittes">
+                        <div v-for="witte in wittes">
+                            <witter witte="witte"></witter>
+                        </div>
+                        <!-- <div class="card p-2" v-for="witte in wittes">
                             <header class="h-card">
                                 <img :src="'../server/uploads/'+witte.usuario.imagen" alt="" class="usuario-card rounded-circle">
                                 <p class="fecha">{{witte.fecha}}</p>
@@ -94,7 +97,7 @@
                                     </div>
                                 </div>
                             </footer>
-                        </div>
+                        </div> -->
                     </main>
                 </div>
                 <div class="col"></div>
