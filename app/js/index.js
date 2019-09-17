@@ -163,7 +163,24 @@ window.onload = function() {
             },
             
             insertComentario() {
-
+                var url = buildUrl('comentarios', 'insertcomentarios');
+                var datos = {
+                    usuario: this.$props.usuario.id,
+                    witte: this.$props.witte.id,
+                    texto: this.$props.texto, /* VARIABLE DE TEXTO DEL COMENTARIO */
+                    fecha: new Date()
+                }
+                axios.post(url, datos).then((response) => {
+                    if (response.data.estado == 'ok') {
+                        this.$props.texto = ""; /* VARIABLE DE TEXTO DEL COMENTARIO */
+                        vm.getWittes();
+                        alertify.success(response.data.msg);
+                    } else if (response.data.estado == 'error') {
+                        alertify.error(response.data.msg);
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
             },
             buscar() {
                 var termino = this.busqueda.replace(" ", "_");
