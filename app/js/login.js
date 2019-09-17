@@ -23,7 +23,9 @@ window.onload = function() {
                 }
                 axios.post(url, datos).then((response) => {
                     if (response.data.estado == 'ok') {
-                        location.href = "http://localhost/examen_desarrollo/app";
+                        alertify.alert("Autenticación", response.data.msg, function(){
+                            location.href = "http://localhost/examen_desarrollo/app/";
+                        });
                     } else if (response.data.estado == 'error') {
                         alertify.warning(response.data.msg);
                     }
