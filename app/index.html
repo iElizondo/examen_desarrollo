@@ -61,25 +61,24 @@
                             </div>
                             <footer>
                                 <div class="accordion" id="accordionExample">
-                                    <div class="card">
-                                        <div class="card-header ver-cometarios" id="headingOne">
+                                    <div class="card" v-for="contario in witte.comentarios">
+                                        <div class="card-header ver-cometarios" id="`comentarios{{ witte.id }}`">
                                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                 <i class="fas fa-eye"> Comentarios</i>
                                         </button>
                                         </div>
 
-                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div id="collapseOne" class="collapse show" aria-labelledby="`comentarios{{ witte.id }}`" data-parent="#accordionExample">
                                             <div class="card-body">
                                                 <div class="card">
                                                     <header class="h-card">
                                                         <img src="../server/uploads/default.png" alt="" class="usuario-card rounded-circle">
-                                                        <p class="fecha">16/09/2019</p>
+                                                        <p class="fecha">{{contario.fecha}}</p>
                                                     </header>
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="c-card">
-                                                                <p class="texto">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni dolorum alias doloribus. Placeat voluptate quae adipisci voluptates, optio, aut perspiciatis illum vero incidunt, veniam consequatur
-                                                                    ratione architecto molestiae voluptatum et.</p>
+                                                                <p class="texto">{{contario.texto}}</p>
                                                             </div>
                                                         </div>
                                                     </div>
