@@ -10,6 +10,7 @@ class Wittes_model extends CI_Model {
             return $query->result_array();
         }
 
+        $this->db->order_by("fecha", "desc");
         $query = $this->db->get_where('wittes', array('id' => $id));
         return $query->row_array();
     }
@@ -19,8 +20,9 @@ class Wittes_model extends CI_Model {
             return FALSE;
         } else {
             $this->db->like('texto', $termino);
+            $this->db->order_by("fecha", "desc");
             $query = $this->db->get('wittes');
-            return $query->row_array();
+            return $query->result_array();
         }
     }
 
