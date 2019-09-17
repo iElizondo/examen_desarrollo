@@ -1,6 +1,6 @@
 ﻿/*
 Created: 11/09/2019
-Modified: 11/09/2019
+Modified: 17/09/2019
 Model: MySQL 5.7
 Database: MySQL 5.7
 */
@@ -28,7 +28,7 @@ CREATE TABLE wittes
   id Int NOT NULL AUTO_INCREMENT,
   usuario Int NOT NULL,
   texto Varchar(256) NOT NULL,
-  fecha Date NOT NULL,
+  fecha Datetime NOT NULL,
   PRIMARY KEY (id)
 )
 ;
@@ -41,7 +41,7 @@ CREATE TABLE comentarios
   usuario Int NOT NULL,
   witte Int NOT NULL,
   texto Varchar(256) NOT NULL,
-  fecha Date NOT NULL,
+  fecha Datetime NOT NULL,
   PRIMARY KEY (id)
 )
 ;
@@ -49,15 +49,15 @@ CREATE TABLE comentarios
 -- Create foreign keys (relationships) section ------------------------------------------------- 
 
 
-ALTER TABLE wittes ADD CONSTRAINT FK_USU_WIT FOREIGN KEY (usuario) REFERENCES usuarios (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+ALTER TABLE wittes ADD CONSTRAINT FK_USU_WIT FOREIGN KEY (usuario) REFERENCES usuarios (id) ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
 
-ALTER TABLE comentarios ADD CONSTRAINT FK_USU_COM FOREIGN KEY (usuario) REFERENCES usuarios (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+ALTER TABLE comentarios ADD CONSTRAINT FK_USU_COM FOREIGN KEY (usuario) REFERENCES usuarios (id) ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
 
-ALTER TABLE comentarios ADD CONSTRAINT FK_WIT_COM FOREIGN KEY (witte) REFERENCES wittes (id) ON DELETE RESTRICT ON UPDATE RESTRICT
+ALTER TABLE comentarios ADD CONSTRAINT FK_WIT_COM FOREIGN KEY (witte) REFERENCES wittes (id) ON DELETE CASCADE ON UPDATE CASCADE
 ;
 
 
