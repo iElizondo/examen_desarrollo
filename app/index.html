@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -29,25 +29,22 @@
                 </div>
             </nav>
         </header>
-        <section class="cuerpo mt-5">
+        <section class="container cuerpo mt-5 pt-4">
             <div class="row">
-                <div class="col"></div>
-                <div class="col-6">
-                    <h1 class="titulo">Witter</h1>
+                <div class="col mx-auto">
                     <div class="input-group mb-3">
-                        <input v-model="busqueda" type="text" class="form-control" placeholder="Buscar">
+                        <input v-model="busqueda" type="text" class="form-control" placeholder="Buscar...">
                         <div class="input-group-append">
-                            <button class="btn btn-outline boton btn-segundo" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+                            <button class="btn btn-outline boton btn-segundo" type="button"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
-                    <main class="witts">
+                    <div class="witts">
                         <witter v-for="witte in wittes" v-bind:witte="witte" v-bind:usuario="usuario"></witter>
-                    </main>
+                    </div>
                 </div>
-                <div class="col"></div>
             </div>
         </section>
-        <footer class="wittear fixed-bottom p-4">
+        <footer class="wittear fixed-bottom p-3 bg-dark">
             <div class="input-group mb-3">
                 <input @keyup.enter="publicar()" v-model="witte"  type="text" class="form-control" placeholder="¿Qué estas pensando?">
                 <div class="input-group-append">
