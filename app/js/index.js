@@ -204,15 +204,19 @@ window.onload = function() {
         },
         methods: {
             getWittes() {
-                var url = buildUrl('wittes', 'getwittes');
-                axios.get(url).then((response) => {
-                    if (response.data.estado == 'ok') {
-                        this.wittes = response.data.msg;
-                        console.info(this.wittes);
-                    } else if (response.data.estado == 'error') {
-                        alertify.warning(response.data.msg);
-                    }
-                }).catch(error => { console.log(error) });
+                if(this.busqueda){
+                    this.buscar();
+                } else {
+                    var url = buildUrl('wittes', 'getwittes');
+                    axios.get(url).then((response) => {
+                        if (response.data.estado == 'ok') {
+                            this.wittes = response.data.msg;
+                            console.info(this.wittes);
+                        } else if (response.data.estado == 'error') {
+                            alertify.warning(response.data.msg);
+                        }
+                    }).catch(error => { console.log(error) });
+                }
             },
             getUsuarioActual() {
                 var url = buildUrl('autenticacion', 'sesion');
@@ -235,11 +239,38 @@ window.onload = function() {
             insertWitte() {
 
             },
-            buscarWitte($text) {
-
-            },
+            
             insertComentario() {
-
+                var url = buildUrl('comentarios', 'insertcomentarios');
+                var datos = {
+                    usuario: this.$props.usuario.id,
+                    witte: this.$props.witte.id,
+                    texto: this.$props.texto, /* VARIABLE DE TEXTO DEL COMENTARIO */
+                    fecha: new Date()
+                }
+                axios.post(url, datos).then((response) => {
+                    if (response.data.estado == 'ok') {
+                        this.$props.texto = ""; /* VARIABLE DE TEXTO DEL COMENTARIO */
+                        vm.getWittes();
+                        alertify.success(response.data.msg);
+                    } else if (response.data.estado == 'error') {
+                        alertify.error(response.data.msg);
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
+            },
+            buscar() {
+                var termino = this.busqueda.replace(" ", "_");
+                var url = buildUrl('wittes', 'foundwittes/'+termino);
+                axios.get(url).then((response) => {
+                    if (response.data.estado == 'ok') {
+                        this.wittes = response.data.msg;
+                        console.info(this.wittes);
+                    } else if (response.data.estado == 'error') {
+                        alertify.warning(response.data.msg);
+                    }
+                }).catch(error => { console.log(error) });
             },
             publicar() {
                 var url = buildUrl('wittes', 'insertwittes');
