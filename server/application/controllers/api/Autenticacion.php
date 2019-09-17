@@ -10,6 +10,7 @@ class Autenticacion extends REST_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->library('session');
+        $this->load->model('usuarios_model');
         $this->load->database();
     }
 
@@ -42,6 +43,18 @@ class Autenticacion extends REST_Controller {
         } else {
             $response = array('estado' => 'error', 'msg' => 'La sesión no está iniciada.');
         }
+        $this->response($response, REST_Controller::HTTP_OK);
+    }
+
+    public function registrarUsuarios_post(){
+        $data = $this->post();
+
+        $data['contrasena'] = md5($data['contrasena']);
+
+        if($this->usuarios_model->set_usuarios($data))
+            $response = array('estado' => 'ok', 'msg' => 'Usuario registrado correctamente.');
+        else
+            $response = array('estado' => 'error', 'msg' => 'Usuario no registrado.');
         $this->response($response, REST_Controller::HTTP_OK);
     }
 

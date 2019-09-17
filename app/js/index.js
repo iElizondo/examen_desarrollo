@@ -126,7 +126,7 @@ window.onload = function() {
                         this.usuario.correo = response.data.msg.correo;
                     } else if (response.data.estado == 'error') {
                         alertify.alert("Autenticación", response.data.msg, function() {
-                            location.href = "http://localhost/examen_desarrollo/app/";
+                            location.href = "http://localhost/examen_desarrollo/app/login.html";
                         });
                     }
                 }).catch(error => {
@@ -141,6 +141,20 @@ window.onload = function() {
             },
             insertComentario() {
 
+            },
+            logout(){
+                var url = buildUrl('autenticacion', 'logout');
+                axios.delete(url).then((response) => {
+                    if (response.data.estado == 'ok') {
+                        alertify.alert("Autenticación", response.data.msg, function() {
+                            location.href = "http://localhost/examen_desarrollo/app/login.html";
+                        });
+                    } else if (response.data.estado == 'error') {
+                        alertify.warning(response.data.msg);
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
             }
         }
     });
