@@ -10,6 +10,7 @@ class Comentarios_model extends CI_Model {
             return $query->result_array();
         }
 
+        $this->db->order_by("fecha", "desc");
         $query = $this->db->get_where('comentarios', array('id' => $id));
         return $query->row_array();
     }
