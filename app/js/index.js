@@ -97,10 +97,10 @@ window.onload = function() {
                 correo: "",
                 contrasena: ""
             },
-            wittes: []
+            witte: ""
         },
         mounted() {
-            //this.getUsuarioActual();
+            this.getUsuarioActual();
             this.getWittes();
         },
         methods: {
@@ -141,6 +141,25 @@ window.onload = function() {
             },
             insertComentario() {
 
+            },
+            publicar(){
+                var url = buildUrl('wittes', 'insertwittes');
+                var datos = {
+                    usuario: this.usuario.id,
+                    texto: this.witte,
+                    fecha: new Date()
+                }
+                axios.post(url, datos).then((response) => {
+                    if (response.data.estado == 'ok') {
+                        this.witte = "";
+                        this.getWittes();
+                        alertify.success(response.data.msg);
+                    } else if (response.data.estado == 'error') {
+                        alertify.error(response.data.msg);
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
             },
             logout() {
                 var url = buildUrl('autenticacion', 'logout');
