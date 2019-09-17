@@ -6,6 +6,96 @@ function buildUrl(modelo, service) {
     return BaseApiUrl + modelo + "/" + service;
 }
 
+Vue.component('comentario', {
+    props: ['comentario', 'usuario'],
+    data: function() {
+        return {
+            edit: false,
+            txt_editar: "",
+            p_editar: ""
+        }
+    },
+    methods: {
+        editar() {
+            this.edit = true;
+            this.txt_editar = this.$props.comentario.texto;
+        },
+        updateComentario() {
+            var url = buildUrl('comentarios', 'updatecomentarios');
+            var datos = {
+                id: this.$props.comentario.id,
+                witte: this.$props.comentario.witte,
+                fecha: this.$props.comentario.fecha,
+                usuario: this.$props.comentario.usuario.id,
+                texto: this.txt_editar
+            }
+            axios.put(url, datos).then((response) => {
+                if (response.data.estado == 'ok') {
+                    this.edit = false;
+                    alertify.success(response.data.msg);
+                    this.$props.comentario.texto = this.txt_editar;
+                } else if (response.data.estado == 'error') {
+                    alertify.warning(response.data.msg);
+                }
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        deleteComentario() {
+            var url = buildUrl('comentarios', 'deletecomentarios/' + this.$props.comentario.id);
+            alertify.confirm("Eliminando", "Esta seguro que quiere eliminar?", function() {
+                    axios.delete(url).then((response) => {
+                        if (response.data.estado == 'ok') {
+                            alertify.success(response.data.msg);
+                        } else if (response.data.estado == 'error') {
+                            alertify.warning(response.data.msg);
+                        }
+                    }).catch(error => { console.log(error) });
+                },
+                function() {
+                    alertify.error('Cancel');
+                });
+        }
+    },
+    template: `<div class="card">
+                <div class="card-header ver-cometarios" :id="'comentarios'+comentario.id">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="'#colap'+comentario.id" aria-expanded="true" :aria-controls="'colap'+comentario.id">
+                        <i class="fas fa-eye"> Comentarios</i>
+                </button>
+                </div>
+
+                <div :id="'colap'+comentario.id" class="collapse show" :aria-labelledby="'comentarios'+comentario.id" :data-parent="'#accord'+comentario.wite">
+                    <div class="card-body">
+                        <div class="card p-2">
+                            <header class="h-card">
+                                <img :src="'../server/uploads/'+comentario.usuario.imagen" alt="" class="usuario-card rounded-circle">
+                                <p class="fecha">{{comentario.fecha}}</p>
+                            </header>
+                            <div class="row">
+                                <div class="col">
+                                    <div v-if="edit">
+                                        <div class="input-group mb-3">
+                                            <input v-model="txt_editar" @keyup.enter="updateComentario()" type="text" class="form-control" placeholder="Editar..." aria-label="Editar..." aria-describedby="button-addon2">
+                                            <div class="input-group-append">
+                                                <button @click="updateComentario()" class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="c-card" v-else>
+                                        <p class="texto">{{comentario.texto}}</p>
+                                    </div>
+                                        <div class="l-card mb-2" v-if="(!edit)  && (comentario.usuario.id == usuario.id)">
+                                        <button @click="editar()" class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-edit"></i></button>
+                                        <button @click="deleteComentario()" class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+})
+
 Vue.component('witter', {
     props: ['witte', 'usuario'],
     data: function() {
@@ -41,7 +131,19 @@ Vue.component('witter', {
             });
         },
         deleteWitte() {
-
+            var url = buildUrl('wittes', 'deleteWittes/' + this.$props.witte.id);
+            alertify.confirm("Eliminando", "Esta seguro que quiere eliminar?", function() {
+                    axios.delete(url).then((response) => {
+                        if (response.data.estado == 'ok') {
+                            alertify.success(response.data.msg);
+                        } else if (response.data.estado == 'error') {
+                            alertify.warning(response.data.msg);
+                        }
+                    }).catch(error => { console.log(error) });
+                },
+                function() {
+                    alertify.error('Cancel');
+                });
         }
     },
     template: `<div class="card p-2 mb-3">
@@ -52,7 +154,7 @@ Vue.component('witter', {
     <div class="c-card">
         <div v-if="edit">
         <div class="input-group mb-3">
-        <input v-model="txt_editar" type="text" class="form-control" placeholder="Editar..." aria-label="Editar..." aria-describedby="button-addon2">
+        <input v-model="txt_editar" @keyup.enter="updateWitte()" type="text" class="form-control" placeholder="Editar..." aria-label="Editar..." aria-describedby="button-addon2">
         <div class="input-group-append">
             <button @click="updateWitte()" class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
         </div>
@@ -69,36 +171,12 @@ Vue.component('witter', {
         </div>
     </div>
     <div class="l-card mb-2" v-if="(!edit) && (witte.usuario.id == usuario.id)">
-        <button @click="editar(witte)" class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-edit"></i></button>
-        <button @click="deleteWitte(witte)" class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-trash-alt"></i></button>
+        <button @click="editar()" class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-edit"></i></button>
+        <button @click="deleteWitte()" class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-trash-alt"></i></button>
     </div>
     <footer>
-        <div class="accordion" id="accordionExample">
-            <div class="card" v-for="contario in witte.comentarios">
-                <div class="card-header ver-cometarios" :id="'comentarios'+witte.id">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" :data-target="'#colap'+witte.id" aria-expanded="true" aria-controls="collapseOne">
-                        <i class="fas fa-eye"> Comentarios</i>
-                </button>
-                </div>
-
-                <div :id="'colap'+witte.id" class="collapse show" :aria-labelledby="'comentarios'+witte.id" data-parent="#accordionExample">
-                    <div class="card-body">
-                        <div class="card p-2">
-                            <header class="h-card">
-                                <img :src="'../server/uploads/'+contario.usuario.imagen" alt="" class="usuario-card rounded-circle">
-                                <p class="fecha">{{contario.fecha}}</p>
-                            </header>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="c-card">
-                                        <p class="texto">{{contario.texto}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="accordion" :id="'accord'+witte.id">
+           <comentario v-for="comentario in witte.comentarios" v-bind:comentario="comentario" v-bind:usuario="usuario"></comentario>
         </div>
     </footer>
 </div>`
@@ -163,7 +241,7 @@ window.onload = function() {
             insertComentario() {
 
             },
-            publicar(){
+            publicar() {
                 var url = buildUrl('wittes', 'insertwittes');
                 var datos = {
                     usuario: this.usuario.id,
