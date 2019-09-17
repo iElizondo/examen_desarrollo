@@ -21,7 +21,7 @@ window.onload = function() {
         el: '#app',
         data: {
             wittes: [],
-            edit: {}
+            edit: false
         },
         mounted() {
             this.getWittes();
