@@ -7,20 +7,40 @@ function buildUrl(modelo, service) {
 }
 
 Vue.component('witter', {
-    props: ['witte'],
+    props: ['witte', 'usuario'],
     data: function() {
         return {
-            edit: false
+            edit: false,
+            txt_editar: "",
+            p_editar: ""
         }
     },
     methods: {
-        editar() {
+        editar($witte) {
             this.edit = true;
+            this.txt_editar = $witte.texto;
         },
-        updateWitte($idWitte) {
-
+        updateWitte() {
+            var url = buildUrl('wittes', 'updatewittes');
+            var datos = {
+                id: this.$props.witte.id,
+                fecha: this.$props.witte.fecha,
+                usuario: this.$props.witte.usuario.id,
+                texto: this.txt_editar
+            }
+            axios.put(url, datos).then((response) => {
+                if (response.data.estado == 'ok') {
+                    this.edit = false;
+                    alertify.success(response.data.msg);
+                    this.$props.witte.texto = this.txt_editar;
+                } else if (response.data.estado == 'error') {
+                    alertify.warning(response.data.msg);
+                }
+            }).catch(error => {
+                console.log(error);
+            });
         },
-        deleteWitte($idWitte) {
+        deleteWitte() {
 
         }
     },
@@ -34,7 +54,7 @@ Vue.component('witter', {
         <div class="input-group mb-3">
         <input v-model="txt_editar" type="text" class="form-control" placeholder="Editar..." aria-label="Editar..." aria-describedby="button-addon2">
         <div class="input-group-append">
-            <button class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+            <button @click="updateWitte()" class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
         </div>
@@ -48,9 +68,9 @@ Vue.component('witter', {
             </div>
         </div>
     </div>
-    <div class="l-card mb-2" v-if="!edit">
-        <button @click="editar()" class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-trash-alt"></i></button>
+    <div class="l-card mb-2" v-if="(!edit) && (witte.usuario.id == usuario.id)">
+        <button @click="editar(witte)" class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-edit"></i></button>
+        <button @click="deleteWitte(witte)" class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-trash-alt"></i></button>
     </div>
     <footer>
         <div class="accordion" id="accordionExample">
