@@ -142,7 +142,7 @@ window.onload = function() {
             insertComentario() {
 
             },
-            logout(){
+            logout() {
                 var url = buildUrl('autenticacion', 'logout');
                 axios.delete(url).then((response) => {
                     if (response.data.estado == 'ok') {
