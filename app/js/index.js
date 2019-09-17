@@ -44,7 +44,7 @@ Vue.component('witter', {
 
         }
     },
-    template: `<div class="card p-2">
+    template: `<div class="card p-2 mb-3">
     <header class="h-card">
         <img :src="'../server/uploads/'+witte.usuario.imagen" alt="" class="usuario-card rounded-circle">
         <p class="fecha">{{witte.fecha}}</p>
