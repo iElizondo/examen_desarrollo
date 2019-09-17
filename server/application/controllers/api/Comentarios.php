@@ -13,9 +13,9 @@ class Comentarios extends REST_Controller {
         $this->load->library('session');
         $this->load->helper('url_helper');
 
-        if(!$this->session->has_userdata('usuario')){
-            redirect(site_url('api/autenticacion/error'));
-        }
+        // if(!$this->session->has_userdata('usuario')){
+        //     redirect(site_url('api/autenticacion/error'));
+        // }
     }
 
     public function getComentarios_get(){

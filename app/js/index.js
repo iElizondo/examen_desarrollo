@@ -16,6 +16,12 @@ Vue.component('witter', {
     methods: {
         editar() {
             this.edit = true;
+        },
+        updateWitte($idWitte) {
+
+        },
+        deleteWitte($idWitte) {
+
         }
     },
     template: `<div class="card p-2">
@@ -25,13 +31,17 @@ Vue.component('witter', {
     </header>
     <div class="c-card">
         <div v-if="edit">
-            <textarea name="txa_comentario" id="txa_comentario" cols="55" rows="5"></textarea>
-            <button class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+        <div class="input-group mb-3">
+        <input v-model="txt_editar" type="text" class="form-control" placeholder="Editar..." aria-label="Editar..." aria-describedby="button-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
         </div>
         <div v-else>
             <p class="texto">{{witte.texto}}</p>
         </div>
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" v-if="!edit">
             <input type="text" class="form-control" placeholder="Comentar..." aria-label="Comentar..." aria-describedby="button-addon2">
             <div class="input-group-append">
                 <button class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
@@ -90,7 +100,7 @@ window.onload = function() {
             wittes: []
         },
         mounted() {
-            this.getUsuarioActual();
+            //this.getUsuarioActual();
             this.getWittes();
         },
         methods: {
@@ -124,12 +134,6 @@ window.onload = function() {
                 });
             },
             insertWitte() {
-
-            },
-            updateWitte($idWitte) {
-
-            },
-            deleteWitte($idWitte) {
 
             },
             buscarWitte($text) {
