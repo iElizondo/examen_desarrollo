@@ -6,103 +6,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Witter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/alertify.min.css">
+    <link rel="stylesheet" href="css/themes/default.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://kit.fontawesome.com/5a6497da12.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <script src="js/alertify.min.js"></script>
+    <script src="js/index.js"></script>
 </head>
 
 <body>
-    <header class="sitio-header fixed-top">
-        <nav class="navbar">
-            <img src="../server/uploads/default.png" alt="" class="logo rounded-circle">
-            <div class="encabezado justify-content-end">
-                <p class="nombre">Nombre</p>
-                <img src="../server/uploads/default.png" alt="" class="usuario rounded-circle">
-                <a href="" class="icono"><i class="fas fa-sign-out-alt"></i></a>
-            </div>
-        </nav>
-    </header>
-    <section class="cuerpo">
-        <div class="row">
-            <div class="col"></div>
-            <div class="col">
-                <h1 class="titulo">Witter</h1>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline boton btn-segundo" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
-                    </div>
+    <div id="app">
+        <header class="sitio-header fixed-top">
+            <nav class="navbar">
+                <img src="../server/uploads/default.png" alt="" class="logo rounded-circle">
+                <div class="encabezado justify-content-end">
+                    <p class="nombre">Nombre</p>
+                    <img src="../server/uploads/default.png" alt="" class="usuario rounded-circle">
+                    <a href="" class="icono"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
-                <main class="witts">
-                    <div class="card">
-                        <header class="h-card">
-                            <img src="../server/uploads/default.png" alt="" class="usuario-card rounded-circle">
-                            <p class="fecha">16/09/2019</p>
-                        </header>
-                        <div class="c-card">
-                            <p class="texto">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni dolorum alias doloribus. Placeat voluptate quae adipisci voluptates, optio, aut perspiciatis illum vero incidunt, veniam consequatur ratione architecto molestiae
-                                voluptatum et.</p>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Comentar..." aria-label="Comentar..." aria-describedby="button-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+            </nav>
+        </header>
+        <section class="cuerpo">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-6">
+                    <h1 class="titulo">Witter</h1>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline boton btn-segundo" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <main class="witts">
+                        <div class="card" v-for="witte in wittes">
+                            <header class="h-card">
+                                <img src="../server/uploads/default.png" alt="" class="usuario-card rounded-circle">
+                                <p class="fecha">{{witte.fecha}}</p>
+                            </header>
+                            <div class="c-card">
+                                <p class="texto">{{witte.texto}}</p>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Comentar..." aria-label="Comentar..." aria-describedby="button-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="l-card">
-                            <button class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-trash-alt"></i></button>
-                        </div>
-                    </div>
-                    <footer>
-                        <div class="accordion" id="accordionExample">
-                            <div class="card">
-                                <div class="card-header ver-cometarios" id="headingOne">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            <i class="fas fa-eye"> Comentarios</i>
-                                    </button>
-                                </div>
+                            <div class="l-card">
+                                <button class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-outline boton btn-action rounded-circle" type="button" id="button-addon2"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                            <footer>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="card">
+                                        <div class="card-header ver-cometarios" id="headingOne">
+                                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <i class="fas fa-eye"> Comentarios</i>
+                                        </button>
+                                        </div>
 
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        <div class="card">
-                                            <header class="h-card">
-                                                <img src="../server/uploads/default.png" alt="" class="usuario-card rounded-circle">
-                                                <p class="fecha">16/09/2019</p>
-                                            </header>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="c-card">
-                                                        <p class="texto">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni dolorum alias doloribus. Placeat voluptate quae adipisci voluptates, optio, aut perspiciatis illum vero incidunt, veniam consequatur
-                                                            ratione architecto molestiae voluptatum et.</p>
+                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <div class="card">
+                                                    <header class="h-card">
+                                                        <img src="../server/uploads/default.png" alt="" class="usuario-card rounded-circle">
+                                                        <p class="fecha">16/09/2019</p>
+                                                    </header>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="c-card">
+                                                                <p class="texto">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni dolorum alias doloribus. Placeat voluptate quae adipisci voluptates, optio, aut perspiciatis illum vero incidunt, veniam consequatur
+                                                                    ratione architecto molestiae voluptatum et.</p>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </footer>
                         </div>
-                    </footer>
-                </main>
+                    </main>
+                </div>
+                <div class="col"></div>
             </div>
-            <div class="col"></div>
-        </div>
-    </section>
-    <footer class="wittear fixed-bottom">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Que estas pensando?" aria-label="Que estas pensando?" aria-describedby="button-addon2">
-            <div class="input-group-append">
-                <button class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+        </section>
+        <footer class="wittear fixed-bottom">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Que estas pensando?" aria-label="Que estas pensando?" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 </body>
 
 </html>
