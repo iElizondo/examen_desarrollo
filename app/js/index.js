@@ -6,11 +6,22 @@ function buildUrl(modelo, service) {
     return BaseApiUrl + modelo + "/" + service;
 }
 
+Vue.component('witter', {
+    props: ['witte'],
+    data: function() {
+        return {
+            edit: false
+        }
+    },
+    template: ''
+})
+
 window.onload = function() {
     var vm = new Vue({
         el: '#app',
         data: {
-            wittes: []
+            wittes: [],
+            edit: {}
         },
         mounted() {
             this.getWittes();
@@ -26,6 +37,24 @@ window.onload = function() {
                         alertify.warning(response.data.msg);
                     }
                 }).catch(error => { console.log(error) });
+            },
+            insertWitte() {
+
+            },
+            updateWitte($idWitte) {
+
+            },
+            deleteWitte($idWitte) {
+
+            },
+            buscarWitte($text) {
+
+            },
+            insertComentario() {
+
+            },
+            editar() {
+                this.edit = true;
             }
         }
     });
