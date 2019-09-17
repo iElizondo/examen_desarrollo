@@ -42,7 +42,7 @@ window.onload = function() {
                 });
             },
             registrarse(){
-                var url = buildUrl('usuarios', 'insertusuarios');
+                var url = buildUrl('autenticacion', 'registrarusuarios');
                 axios.post(url, this.usuario).then((response) => {
                     if (response.data.estado == 'ok') {
                         alertify.alert("Registro", response.data.msg, function(){
