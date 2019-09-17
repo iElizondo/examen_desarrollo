@@ -10,47 +10,57 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://kit.fontawesome.com/5a6497da12.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <script src="js/alertify.min.js"></script>
+    <link rel="stylesheet" href="css/alertify.min.css">
+    <link rel="stylesheet" href="css/themes/default.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/register.js"></script>
 </head>
 
 <body>
-    <section id="register" class="mb-5 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
-                    <div class="card_register">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <h1 class=" h3 mb-3 font-weight-normal ">Registro</h1>
-                                <form action="/examen_desarrollo/server/index.php/api/images/upload" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-                                    <div class="card card-body text-center">
-                                        <img src="../server/uploads/default.png" alt="Imagen de Usuario" class="imagen">
-                                        <br>
-                                        <input type="file" name="imagen" />
-                                    </div>
-                                </form>
-                                <br>
-                                <form action="submit">
-                                    <div class="form-group ">
-                                        <input type="nombre" name="nombre" class="form-control " placeholder="Nombre" required>
-                                    </div>
-                                    <div class="form-group ">
-                                        <input type="correo" name="correo" class="form-control " placeholder="Correo" required minlength="8 ">
-                                    </div>
-                                    <div class="form-group ">
-                                        <input type="contra" name="contra" class="form-control " placeholder="Contraseña" required minlength="5 " maxlength="10 ">
-                                    </div>
+    <div id="app">
+        <section id="register" class="mb-5 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-6 mx-auto">
+                        <div class="card_register">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h1 class=" h3 mb-3 font-weight-normal ">Registro</h1>
+                                    <!-- action="/examen_desarrollo/server/index.php/api/images/upload" -->
+                                    <form method="post" enctype="multipart/form-data" accept-charset="utf-8">
+                                        <div class="card card-body text-center">
+                                            <img v-bind:src="usuario.url" alt="Imagen de Usuario" class="imagen">
+                                            <div class="input-group my-3 pr-1">
+                                                <div class="custom-file">
+                                                    <input v-on:change="imagen_upload()" ref="file" type="file" class="custom-file-input" id="imagen" name="imagen">
+                                                    <label class="custom-file-label" for="imagen">{{ file }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form>
+                                        <div class="form-group ">
+                                            <input type="text" v-model="usuario.nombre" name="nombre" class="form-control " placeholder="Nombre" required>
+                                        </div>
+                                        <div class="form-group ">
+                                            <input type="email" v-model="usuario.correo" name="correo" class="form-control " placeholder="Correo" required minlength="8 ">
+                                        </div>
+                                        <div class="form-group ">
+                                            <input type="password" v-model="usuario.contrasena" name="contrasena" class="form-control " placeholder="Contraseña" required minlength="5 " maxlength="10 ">
+                                        </div>
 
-                                    <br>
-                                    <button type="submit" class="btn btn-lg boton btn-principal btn-block ">Registrarse</button>
-                                </form>
+                                        <br>
+                                        <button @click="registrarse" type="button" class="btn btn-lg boton btn-principal btn-block ">Registrarse</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </body>
 
 </html>

@@ -17,16 +17,11 @@ class Usuarios_model extends CI_Model {
     public function set_usuarios($usuario = NULL, $image_data = NULL){
         if($usuario){
             $data = array(
+                'imagen' => $usuario['imagen'],
                 'correo' => $usuario['correo'],
                 'contrasena' => $usuario['contrasena'],
                 'nombre' => $usuario['nombre']
             );
-
-            if($image_data){
-                $data['imagen'] = $image_data['upload_data']['file_name'];
-            } else {
-                $data['imagen'] = 'default.png';
-            }
 
             return $this->db->insert('usuarios', $data);
         } else {
@@ -37,14 +32,11 @@ class Usuarios_model extends CI_Model {
     public function update_usuarios($usuario = FALSE, $image_data = NULL){
         if($usuario){
             $data = array(
+                'imagen' => $usuario['imagen'],
                 'correo' => $usuario['correo'],
                 'contrasena' => $usuario['contrasena'],
                 'nombre' => $usuario['nombre']
             );
-
-            if($image_data){
-                $data['imagen'] = $image_data['upload_data']['file_name'];
-            }
 
             $this->db->where('id', $usuario['id']);
             return $this->db->update('usuarios', $data);
