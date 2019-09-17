@@ -11,11 +11,20 @@ class Wittes_model extends CI_Model {
             $query = $this->db->get('wittes');
             $wittes = $query->result_array();
 
-            //Se repasan para agregar los comentarios
+            //Se repasan para agregar los comentarios y usuarios
             foreach($wittes as $key => $witte){
+                //comentarios witte
                 $this->db->order_by("fecha", "desc");
                 $query = $this->db->get_where('comentarios', array('witte' => $witte['id']));
                 $wittes[$key]['comentarios'] = $query->result_array();
+                foreach($wittes[$key]['comentarios'] as $key_com => $comentario){
+                    //usuarios witte
+                    $query = $this->db->get_where('usuarios', array('id' => $comentario['usuario']));
+                    $wittes[$key]['comentarios'][$key_com]['usuario'] = $query->row_array();
+                }
+                //usuarios witte
+                $query = $this->db->get_where('usuarios', array('id' => $witte['usuario']));
+                $wittes[$key]['usuario'] = $query->row_array();
             }
             return $wittes;
         }
@@ -33,11 +42,20 @@ class Wittes_model extends CI_Model {
             $query = $this->db->get('wittes');
             $wittes = $query->result_array();
 
-            //Se repasan para agregar los comentarios
+            //Se repasan para agregar los comentarios y usuarios
             foreach($wittes as $key => $witte){
+                //comentarios witte
                 $this->db->order_by("fecha", "desc");
                 $query = $this->db->get_where('comentarios', array('witte' => $witte['id']));
                 $wittes[$key]['comentarios'] = $query->result_array();
+                foreach($wittes[$key]['comentarios'] as $key_com => $comentario){
+                    //usuarios witte
+                    $query = $this->db->get_where('usuarios', array('id' => $comentario['usuario']));
+                    $wittes[$key]['comentarios'][$key_com]['usuario'] = $query->row_array();
+                }
+                //usuarios witte
+                $query = $this->db->get_where('usuarios', array('id' => $witte['usuario']));
+                $wittes[$key]['usuario'] = $query->row_array();
             }
             return $wittes;
         }
