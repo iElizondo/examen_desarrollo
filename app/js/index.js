@@ -102,7 +102,7 @@ Vue.component('witter', {
         return {
             edit: false,
             txt_editar: "",
-            p_editar: ""
+            txt_editar_comentario: ""
         }
     },
     methods: {
@@ -144,6 +144,26 @@ Vue.component('witter', {
                 function() {
                     alertify.error('Cancel');
                 });
+        },
+        insertComentario() {
+            var url = buildUrl('comentarios', 'insertcomentarios');
+            var datos = {
+                usuario: this.$props.usuario.id,
+                witte: this.$props.witte.id,
+                texto: this.txt_editar_comentario,
+                fecha: new Date()
+            }
+            axios.post(url, datos).then((response) => {
+                if (response.data.estado == 'ok') {
+                    this.$props.texto = this.txt_editar_comentario;
+                    vm.getWittes();
+                    alertify.success(response.data.msg);
+                } else if (response.data.estado == 'error') {
+                    alertify.error(response.data.msg);
+                }
+            }).catch(error => {
+                console.log(error);
+            });
         }
     },
     template: `<div class="card p-2 mb-3">
@@ -164,9 +184,9 @@ Vue.component('witter', {
             <p class="texto">{{witte.texto}}</p>
         </div>
         <div class="input-group mb-3" v-if="!edit">
-            <input type="text" class="form-control" placeholder="Comentar..." aria-label="Comentar..." aria-describedby="button-addon2">
+            <input v-model="txt_editar_comentario" @keyup.enter="insertComentario()" type="text" class="form-control" placeholder="Comentar..." aria-label="Comentar..." aria-describedby="button-addon2">
             <div class="input-group-append">
-                <button class="btn btn-outline boton btn-principal" type="button" id="button-addon2"><i class="fas fa-paper-plane"></i></button>
+                <button class="btn btn-outline boton btn-principal" type="button" id="button-addon2" @click="insertComentario()"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
@@ -204,7 +224,7 @@ window.onload = function() {
         },
         methods: {
             getWittes() {
-                if(this.busqueda){
+                if (this.busqueda) {
                     this.buscar();
                 } else {
                     var url = buildUrl('wittes', 'getwittes');
@@ -239,30 +259,9 @@ window.onload = function() {
             insertWitte() {
 
             },
-            
-            insertComentario() {
-                var url = buildUrl('comentarios', 'insertcomentarios');
-                var datos = {
-                    usuario: this.$props.usuario.id,
-                    witte: this.$props.witte.id,
-                    texto: this.$props.texto, /* VARIABLE DE TEXTO DEL COMENTARIO */
-                    fecha: new Date()
-                }
-                axios.post(url, datos).then((response) => {
-                    if (response.data.estado == 'ok') {
-                        this.$props.texto = ""; /* VARIABLE DE TEXTO DEL COMENTARIO */
-                        vm.getWittes();
-                        alertify.success(response.data.msg);
-                    } else if (response.data.estado == 'error') {
-                        alertify.error(response.data.msg);
-                    }
-                }).catch(error => {
-                    console.log(error);
-                });
-            },
             buscar() {
                 var termino = this.busqueda.replace(" ", "_");
-                var url = buildUrl('wittes', 'foundwittes/'+termino);
+                var url = buildUrl('wittes', 'foundwittes/' + termino);
                 axios.get(url).then((response) => {
                     if (response.data.estado == 'ok') {
                         this.wittes = response.data.msg;
