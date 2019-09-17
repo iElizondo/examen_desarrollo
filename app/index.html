@@ -41,9 +41,7 @@
                         </div>
                     </div>
                     <main class="witts">
-                        <div v-for="witte in wittes">
-                            <witter witte="witte"></witter>
-                        </div>
+                        <witter v-for="witte in wittes" v-bind:witte="witte"></witter>
                         <!-- <div class="card p-2" v-for="witte in wittes">
                             <header class="h-card">
                                 <img :src="'../server/uploads/'+witte.usuario.imagen" alt="" class="usuario-card rounded-circle">
