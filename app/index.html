@@ -33,9 +33,9 @@
             <div class="row">
                 <div class="col mx-auto">
                     <div class="input-group mb-3">
-                        <input v-model="busqueda" type="text" class="form-control" placeholder="Buscar...">
+                        <input @keyup="buscar()" v-model="busqueda" type="text" class="form-control" placeholder="Buscar...">
                         <div class="input-group-append">
-                            <button class="btn btn-outline boton btn-segundo" type="button"><i class="fas fa-search"></i></button>
+                            <button @click="buscar()" class="btn btn-outline boton btn-segundo" type="button"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                     <div class="witts">

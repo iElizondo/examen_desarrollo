@@ -126,15 +126,19 @@ window.onload = function() {
         },
         methods: {
             getWittes() {
-                var url = buildUrl('wittes', 'getwittes');
-                axios.get(url).then((response) => {
-                    if (response.data.estado == 'ok') {
-                        this.wittes = response.data.msg;
-                        console.info(this.wittes);
-                    } else if (response.data.estado == 'error') {
-                        alertify.warning(response.data.msg);
-                    }
-                }).catch(error => { console.log(error) });
+                if(this.busqueda){
+                    this.buscar();
+                } else {
+                    var url = buildUrl('wittes', 'getwittes');
+                    axios.get(url).then((response) => {
+                        if (response.data.estado == 'ok') {
+                            this.wittes = response.data.msg;
+                            console.info(this.wittes);
+                        } else if (response.data.estado == 'error') {
+                            alertify.warning(response.data.msg);
+                        }
+                    }).catch(error => { console.log(error) });
+                }
             },
             getUsuarioActual() {
                 var url = buildUrl('autenticacion', 'sesion');
@@ -157,11 +161,21 @@ window.onload = function() {
             insertWitte() {
 
             },
-            buscarWitte($text) {
-
-            },
+            
             insertComentario() {
 
+            },
+            buscar() {
+                var termino = this.busqueda.replace(" ", "_");
+                var url = buildUrl('wittes', 'foundwittes/'+termino);
+                axios.get(url).then((response) => {
+                    if (response.data.estado == 'ok') {
+                        this.wittes = response.data.msg;
+                        console.info(this.wittes);
+                    } else if (response.data.estado == 'error') {
+                        alertify.warning(response.data.msg);
+                    }
+                }).catch(error => { console.log(error) });
             },
             publicar(){
                 var url = buildUrl('wittes', 'insertwittes');
