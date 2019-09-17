@@ -10,9 +10,18 @@ window.onload = function() {
     var vm = new Vue({
         el: '#app',
         data: {
+            usuario: {
+                id: "",
+                url: "../server/uploads/default.png",
+                imagen: "default.png",
+                nombre: "",
+                correo: "",
+                contrasena: ""
+            },
             wittes: []
         },
         mounted() {
+            this.getUsuarioActual();
             this.getWittes();
         },
         methods: {
@@ -26,6 +35,24 @@ window.onload = function() {
                         alertify.warning(response.data.msg);
                     }
                 }).catch(error => { console.log(error) });
+            },
+            getUsuarioActual(){
+                var url = buildUrl('autenticacion', 'sesion');
+                axios.get(url).then((response) => {
+                    if (response.data.estado == 'ok') {
+                        this.usuario.id = response.data.msg.id;
+                        this.usuario.url = "../server/uploads/" + response.data.msg.imagen;
+                        this.usuario.imagen = response.data.msg.imagen;
+                        this.usuario.nombre = response.data.msg.nombre;
+                        this.usuario.correo = response.data.msg.correo;
+                    } else if (response.data.estado == 'error') {
+                        alertify.alert("Autenticación", response.data.msg, function(){
+                            location.href = "http://localhost/examen_desarrollo/app/";
+                        });
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
             }
         }
     });
