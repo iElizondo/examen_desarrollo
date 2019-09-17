@@ -97,7 +97,8 @@ window.onload = function() {
                 correo: "",
                 contrasena: ""
             },
-            witte: ""
+            witte: "",
+            busqueda: ""
         },
         mounted() {
             this.getUsuarioActual();
