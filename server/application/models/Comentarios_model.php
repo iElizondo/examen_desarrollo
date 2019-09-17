@@ -15,6 +15,12 @@ class Comentarios_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function found_comentarios($witte = FALSE){
+        $this->db->order_by("fecha", "desc");
+        $query = $this->db->get_where('comentarios', array('witte' => $witte));
+        return $query->row_array();
+    }
+
     public function set_comentarios($comentario = FALSE){
         if($comentario){
             $data = array(

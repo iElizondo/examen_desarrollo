@@ -6,11 +6,20 @@ class Wittes_model extends CI_Model {
 
     public function get_wittes($id = FALSE){
         if ($id === FALSE){
+            //Se obtienen los wittes
+            $this->db->order_by("fecha", "desc");
             $query = $this->db->get('wittes');
-            return $query->result_array();
+            $wittes = $query->result_array();
+
+            //Se repasan para agregar los comentarios
+            foreach($wittes as $key => $witte){
+                $this->db->order_by("fecha", "desc");
+                $query = $this->db->get_where('comentarios', array('witte' => $witte['id']));
+                $wittes[$key]['comentarios'] = $query->result_array();
+            }
+            return $wittes;
         }
 
-        $this->db->order_by("fecha", "desc");
         $query = $this->db->get_where('wittes', array('id' => $id));
         return $query->row_array();
     }
@@ -22,7 +31,15 @@ class Wittes_model extends CI_Model {
             $this->db->like('texto', $termino);
             $this->db->order_by("fecha", "desc");
             $query = $this->db->get('wittes');
-            return $query->result_array();
+            $wittes = $query->result_array();
+
+            //Se repasan para agregar los comentarios
+            foreach($wittes as $key => $witte){
+                $this->db->order_by("fecha", "desc");
+                $query = $this->db->get_where('comentarios', array('witte' => $witte['id']));
+                $wittes[$key]['comentarios'] = $query->result_array();
+            }
+            return $wittes;
         }
     }
 
