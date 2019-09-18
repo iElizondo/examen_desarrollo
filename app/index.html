@@ -21,7 +21,13 @@
     <div id="app">
         <header class="sitio-header fixed-top">
             <nav class="navbar">
-                <img src="../server/uploads/logo.png" alt="" class="logo rounded-circle">
+                <a class="navbar-brand text-light h2" href="/">Witter</a>
+                <div class="input-group col-8 my-2">
+                    <input @keyup="buscar()" v-model="busqueda" type="text" class="form-control" placeholder="Buscar...">
+                    <div class="input-group-append">
+                        <button @click="buscar()" class="btn btn-outline boton btn-segundo" type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
                 <div class="encabezado justify-content-end mr-4">
                     <p class="nombre m-2">{{ usuario.nombre }}</p>
                     <img v-bind:src="usuario.url" alt="" class="usuario rounded-circle">
@@ -31,13 +37,7 @@
         </header>
         <section class="container cuerpo mt-5 pt-4">
             <div class="row">
-                <div class="col mx-auto">
-                    <div class="input-group mb-3">
-                        <input @keyup="buscar()" v-model="busqueda" type="text" class="form-control" placeholder="Buscar...">
-                        <div class="input-group-append">
-                            <button @click="buscar()" class="btn btn-outline boton btn-segundo" type="button"><i class="fas fa-search"></i></button>
-                        </div>
-                    </div>
+                <div class="col mx-auto my-3">
                     <div class="witts">
                         <witter v-for="witte in wittes" v-bind:witte="witte" v-bind:usuario="usuario" v-bind:key="witte.id"></witter>
                     </div>

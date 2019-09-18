@@ -64,7 +64,7 @@ Vue.component('comentario', {
     template: `<div class="border rounded p-3">
                     <header class="mb-2">
                         <img :src="'../server/uploads/'+comentario.usuario.imagen" alt="" class="usuario-card rounded-circle border border-success">
-                        <p class="fecha">{{comentario.fecha}}</p>
+                        <p class="fecha">{{comentario.fecha}} {{comentario.usuario.correo}}</p>
                     </header>
                     <div class="row">
                         <div class="col">
@@ -168,7 +168,7 @@ Vue.component('witter', {
     template: `<div class="card p-4 mb-3">
                     <header class="h-card mb-2">
                         <img :src="'../server/uploads/'+witte.usuario.imagen" alt="" class="usuario-card rounded-circle border border-success">
-                        <p class="fecha">{{witte.fecha}}</p>
+                        <p class="fecha">{{witte.fecha}} {{witte.usuario.correo}}</p>
                     </header>
                     <div class="c-card">
                         <div v-if="edit">
